@@ -97,7 +97,7 @@ void loop()
 {
     RC_Channel::set_pwm_all();
     print_pwm();
-    
+
     copy_input_output();
 
     hal.scheduler->delay(20);
@@ -116,9 +116,9 @@ static void print_radio_values()
 {
     for (int i=0; i<NUM_CHANNELS; i++) {
 	     hal.console->printf("CH%u: %u|%u\n",
-			  (unsigned)i+1, 
-			  (unsigned)rc[i].radio_min, 
-			  (unsigned)rc[i].radio_max); 
+			  (unsigned)i+1,
+			  (unsigned)rc[i].radio_min,
+			  (unsigned)rc[i].radio_max);
     }
 }
 

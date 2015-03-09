@@ -27,7 +27,7 @@ static NOINLINE void send_heartbeat(mavlink_channel_t chan)
     uint8_t base_mode = MAV_MODE_FLAG_CUSTOM_MODE_ENABLED;
     uint8_t system_status = MAV_STATE_ACTIVE;
     uint32_t custom_mode = control_mode;
-    
+
     if (failsafe.triggered != 0) {
         system_status = MAV_STATE_CRITICAL;
     }
@@ -204,7 +204,7 @@ static void NOINLINE send_location(mavlink_channel_t chan)
     // allows us to correctly calculate velocities and extrapolate
     // positions.
     // If we don't have a GPS fix then we are dead reckoning, and will
-    // use the current boot time as the fix time.    
+    // use the current boot time as the fix time.
     if (gps.status() >= AP_GPS::GPS_OK_FIX_2D) {
         fix_time = gps.last_fix_time_ms();
     } else {
@@ -401,7 +401,7 @@ bool GCS_MAVLINK::try_send_message(enum ap_message id)
     switch (id) {
     case MSG_HEARTBEAT:
         CHECK_PAYLOAD_SIZE(HEARTBEAT);
-        gcs[chan-MAVLINK_COMM_0].last_heartbeat_time = hal.scheduler->millis();        
+        gcs[chan-MAVLINK_COMM_0].last_heartbeat_time = hal.scheduler->millis();
         send_heartbeat(chan);
         return true;
 
@@ -547,7 +547,7 @@ bool GCS_MAVLINK::try_send_message(enum ap_message id)
         break; // just here to prevent a warning
 	}
 
-    
+
     return true;
 }
 
@@ -649,7 +649,7 @@ bool GCS_MAVLINK::stream_trigger(enum streams stream_num)
 
     // send at a much lower rate while handling waypoints and
     // parameter sends
-    if ((stream_num != STREAM_PARAMS) && 
+    if ((stream_num != STREAM_PARAMS) &&
         (waypoint_receiving || _queued_parameter != NULL)) {
         rate *= 0.25;
     }
@@ -1069,7 +1069,7 @@ void GCS_MAVLINK::handleMessage(mavlink_message_t* msg)
 		{
 			mavlink_hil_state_t packet;
 			mavlink_msg_hil_state_decode(msg, &packet);
-			
+
             // set gps hil sensor
             Location loc;
             loc.lat = packet.lat;
@@ -1077,11 +1077,11 @@ void GCS_MAVLINK::handleMessage(mavlink_message_t* msg)
             loc.alt = packet.alt/10;
             Vector3f vel(packet.vx, packet.vy, packet.vz);
             vel *= 0.01f;
-            
+
             gps.setHIL(0, AP_GPS::GPS_OK_FIX_3D,
                        packet.time_usec/1000,
                        loc, vel, 10, 0, true);
-			
+
 			// rad/sec
             Vector3f gyros;
             gyros.x = packet.rollspeed;
@@ -1093,7 +1093,7 @@ void GCS_MAVLINK::handleMessage(mavlink_message_t* msg)
             accels.x = packet.xacc * (GRAVITY_MSS/1000.0f);
             accels.y = packet.yacc * (GRAVITY_MSS/1000.0f);
             accels.z = packet.zacc * (GRAVITY_MSS/1000.0f);
-            
+
             ins.set_gyro(0, gyros);
 
             ins.set_accel(0, accels);
