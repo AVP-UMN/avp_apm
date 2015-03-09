@@ -10,7 +10,7 @@
 
 set deviceA /dev/ttyACM0
 
-# check for an old file called APM, caused by 
+# check for an old file called APM, caused by
 # a bug in an earlier firmware release
 if [ -f /fs/microsd/APM ]
 then
@@ -146,14 +146,14 @@ then
         echo "PX4IO CRC OK"
     else
         echo "PX4IO CRC failure"
-        echo "PX4IO CRC failure" >> $logfile    
+        echo "PX4IO CRC failure" >> $logfile
         tone_alarm MBABGP
 
-        if px4io safety_on
+        if px4io safety_off
         then
-            echo "PX4IO disarm OK"
+            echo "PX4IO arm OK"
         else
-            echo "PX4IO disarm failed"
+            echo "PX4IO arm failed"
         fi
 
         sleep 1
@@ -164,17 +164,17 @@ then
                if px4io start norc
                then
                   echo "PX4IO restart OK"
-                  echo "PX4IO restart OK" >> $logfile    
+                  echo "PX4IO restart OK" >> $logfile
                   tone_alarm MSPAA
                else
                   echo "PX4IO restart failed"
-                  echo "PX4IO restart failed" >> $logfile    
+                  echo "PX4IO restart failed" >> $logfile
                   tone_alarm MNGGG
                   sh /etc/init.d/rc.error
                fi
         else
                echo "PX4IO update failed"
-               echo "PX4IO update failed" >> $logfile    
+               echo "PX4IO update failed" >> $logfile
                tone_alarm MNGGG
         fi
     fi
@@ -228,7 +228,7 @@ then
         if hmc5883 calibrate
         then
           echo "hmc5883 calibrate OK"
-        else 
+        else
           echo "hmc5883 calibrate failed"
           echo "hmc5883 calibrate failed" >> $logfile
           tone_alarm MSBBB
@@ -377,7 +377,7 @@ then
 else
     echo "failed to start mtd driver"
     echo "failed to start mtd driver" >> $logfile
-    sh /etc/init.d/rc.error           
+    sh /etc/init.d/rc.error
 fi
 
 if mtd readtest /fs/mtd
@@ -386,7 +386,7 @@ then
 else
     echo "failed to read mtd"
     echo "failed to read mtd" >> $logfile
-    sh /etc/init.d/rc.error           
+    sh /etc/init.d/rc.error
 fi
 
 if [ -f /bin/uavcan ]
@@ -423,7 +423,7 @@ then
   else
     echo "failed to test mtd"
     echo "failed to test mtd" >> $logfile
-    sh /etc/init.d/rc.error           
+    sh /etc/init.d/rc.error
   fi
 fi
 
