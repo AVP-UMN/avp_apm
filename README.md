@@ -1,7 +1,7 @@
 #AMP for AVP#
 
-This project is a motified version of APMrover2 [APMrover2](http://rover.ardupilot.com), it is intended to be used for RC car control and designed to be a part of [autonomous vehecle project of Tesla Works](http://www.teslaworks.net/project/robomagellan/).
-This project is forked from [PX4/Firmware](https://github.com/diydrones/ardupilot/).
+This project is a motified version of [APMrover2](http://rover.ardupilot.com), it is intended to be used for RC car control and designed to be a part of [autonomous vehecle project of Tesla Works](http://www.teslaworks.net/project/robomagellan/).
+This project was forked from [diydrones/ardupilot](https://github.com/diydrones/ardupilot/).
 
 ### The ArduPilot project is made up of: ###
 >>ArduCopter (or APM:Copter) : [code](https://github.com/diydrones/ardupilot/tree/master/ArduCopter), [wiki](http://copter.ardupilot.com)
